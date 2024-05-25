@@ -1,8 +1,11 @@
 from django.urls import path
 from . import views
 
+
+app_name = 'valuation_questions'
 urlpatterns = [
-    path('', views.question_list, name='question_list'),
-    path('questions/<int:question_id>/', views.question_detail, name='question_detail'),
-    path('feedback/<int:response_id>/', views.feedback, name='feedback'),
+    path('', views.index, name ='index'),
+    path('<int:question_id>/', views.detail, name ='detail'),
+    path('<int:question_id>/results/', views.results, name ='results'),
+    path('<int:question_id>/selection/', views.selection, name ='selection'),
 ]

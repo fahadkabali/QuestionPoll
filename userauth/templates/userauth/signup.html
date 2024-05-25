@@ -1,0 +1,65 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Signup page
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex align-items-center h-100 ">
+    <div class="container h-100 form_container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+              <form method="POST" action="/signup/">
+                {% csrf_token %}
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="text" placeholder="Username"id='username' class="form-control form-control-lg" required>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="text" placeholder="First Name" id="fname" class="form-control form-control-lg" required>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="text" placeholder="Last Name" id="lname" class="form-control form-control-lg" required>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="email" placeholder="Email" class="form-control form-control-lg" required>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="password" placeholder="Password" id="pass1" class="form-control form-control-lg" required>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="password" placeholder="Confirm Your Password" name="pass2" class="form-control form-control-lg">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button  type="submit" data-mdb-button-init
+                    data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 gradient-custom-3 text-body">Register</button>
+                </div>
+              </form>
+              {{form.errors}}
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  <strong>Message:</strong> {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              {% endfor %}
+
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'login' %}"
+                    class="fw-bold text-body"><u>Login here</u></a>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+  
