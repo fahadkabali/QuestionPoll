@@ -28,8 +28,8 @@ def user_signup(request):
             return redirect('signup')
         
         if User.objects.filter(email=email).exists():
-            messages.error(request, "Email Already Registered!!")
-            return redirect('login')
+            messages.error(request, "Email Account Exits!")
+            return redirect('signup')
         
         if len(username)>20:
             messages.error(request, "Username must be under 20 charcters!!")
@@ -111,7 +111,7 @@ def user_login(request):
 
         else:
             messages.error(request, "Bad Credentials!")
-            return redirect("home")
+            return redirect("login")
     return render(request, "userauth/login.html")
 
 def user_logout(request):
