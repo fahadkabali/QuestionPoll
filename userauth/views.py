@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 from . tokens import generate_token
 # Create your views here.
 def home(request):
@@ -107,7 +108,8 @@ def user_login(request):
         if user is not None:
             login(request, user)
             username = user.username
-            return render(request,"valuation_questions/index.html", {'username' : username})
+            return redirect('valuation_questions:index')
+            # return render(request,"valuation_questions/index.html", {'username' : username})
 
         else:
             messages.error(request, "Bad Credentials!")

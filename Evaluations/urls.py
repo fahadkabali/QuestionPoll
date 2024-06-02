@@ -20,7 +20,7 @@ from qrcode_scanner import views
 
 urlpatterns = [
     path('',views.QRCodeView.as_view()),
-    path('userauth',include('userauth.urls')),
+    path('userauth/',include('userauth.urls')),
     path('admin/', admin.site.urls),
     path('securityquestions/',include('valuation_questions.urls'))
 ]

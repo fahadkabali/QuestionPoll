@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'valuation_questions',
     'userauth',
     'qrcode_scanner',
+    'administrator'
     # 'crispy-forms',
     
 ]
@@ -138,3 +139,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = 'userauth:login'
+
