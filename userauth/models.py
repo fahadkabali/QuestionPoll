@@ -1,17 +1,9 @@
-from django.db import models
-
-# Create your models here.
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser, UserManager, Group, Permission
 from django.db import models
 from django.contrib.auth.hashers import make_password
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-# Create your models here.
-
 
 class CustomUserManager(UserManager):
-    def _create_user(self, email, password, **extra_fields):
+    def _create_user(self, email, password=None, **extra_fields):
         email = self.normalize_email(email)
         user = CustomUser(email=email, **extra_fields)
         user.password = make_password(password)
@@ -42,8 +34,26 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(default=2, choices=USER_TYPE, max_length=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name='custom_user_groups',  # Add related_name
+        blank=True,
+        help_text=('The groups this user belongs to. A user will get all permissions '
+                   'granted to each of their groups.'),
+        verbose_name=('groups'),
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='custom_user_permissions',  # Add related_name
+        blank=True,
+        help_text=('Specific permissions for this user.'),
+        verbose_name=('user permissions'),
+    )
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
     objects = CustomUserManager()
 
     def __str__(self):

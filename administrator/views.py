@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from voting.models import Voter, Position, Candidate, Votes
-from account.models import CustomUser
-from account.forms import CustomUserForm
+from userauth.models import CustomUser
+from userauth.forms import SignupForm
 from voting.forms import *
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -125,7 +125,7 @@ def dashboard(request):
 
 def voters(request):
     voters = Voter.objects.all()
-    userForm = CustomUserForm(request.POST or None)
+    userForm = SignupForm(request.POST or None)
     voterForm = VoterForm(request.POST or None)
     context = {
         'form1': userForm,
@@ -183,7 +183,7 @@ def updateVoter(request):
         messages.error(request, "Access Denied")
     try:
         instance = Voter.objects.get(id=request.POST.get('id'))
-        user = CustomUserForm(request.POST or None, instance=instance.admin)
+        user = SignupForm(request.POST or None, instance=instance.admin)
         voter = VoterForm(request.POST or None, instance=instance)
         user.save()
         voter.save()

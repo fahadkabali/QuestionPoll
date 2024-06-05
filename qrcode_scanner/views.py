@@ -30,7 +30,7 @@ class QRCodeView(View):
             box_size=10,
             border=4,
         )
-        qr.add_data("http://127.0.0.1:8085/userauth/")
+        qr.add_data("http://127.0.0.1:8000/userauth/")
         qr.make(fit=True)
         img = qr.make_image(fill='black', back_color='white')
         response = HttpResponse(content_type="image/png")

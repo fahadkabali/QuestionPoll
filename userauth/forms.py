@@ -7,8 +7,8 @@ class FormSettings(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormSettings, self).__init__(*args, **kwargs)
         # Applying Bootstrap 'form-control' class to all visible fields
-        for field in self.visible_fields():
-            field.field.widget.attrs['class'] = 'form-control'
+        # for field in self.visible_fields():
+        #     field.field.widget.attrs['class'] = 'form-control'
 
 class SignupForm(UserCreationForm, FormSettings):
     email = forms.EmailField(required=True)
