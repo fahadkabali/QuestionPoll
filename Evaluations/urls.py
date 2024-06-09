@@ -22,5 +22,7 @@ urlpatterns = [
     path('',views.QRCodeView.as_view()),
     path('userauth/',include('userauth.urls')),
     path('admin/', admin.site.urls),
-    path('securityquestions/',include('valuation_questions.urls'))
+    path('securityquestions/',include('valuation_questions.urls')),
+    path('administrator/', include('administrator.urls'))
+
 ]

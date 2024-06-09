@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'valuation_questions',
     'userauth',
     'qrcode_scanner',
-    # 'administrator'
+    'administrator'
     # 'crispy-forms',
     
 ]
