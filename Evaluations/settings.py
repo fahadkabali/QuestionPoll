@@ -49,10 +49,20 @@ INSTALLED_APPS = [
     'valuation_questions',
     'userauth',
     'qrcode_scanner',
-    'administrator'
+    'debug_toolbar',
+    'bootstrap4',
+    
+    
     # 'crispy-forms',
     
 ]
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Evaluations.urls'
@@ -130,21 +141,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_ROOT = '/static/'
+# STATIC_ROOT = '/static/'
 
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",  # Assuming 'static' is at the root of your project
+# ]
+# STATIC_URL = '/static/'
+# STATIC_ROOT = '/static/'
+
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static/'),
+# )
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = 'static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Assuming 'static' is at the root of your project
+    BASE_DIR / "static",  # Directory for development static files
 ]
-STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
-
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'core/static'),
-)
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root') 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

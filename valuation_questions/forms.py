@@ -1,12 +1,30 @@
 from django import forms
-from .models import Response, Option
+from .models import Question, Choice, QuestionGroup
 
-class ResponseForm(forms.ModelForm):
+class QuestionForm(forms.ModelForm):
     class Meta:
-        model = Response
-        fields = ['selected_option']
+        model = Question
+        fields = ['question_text', 'pub_date', 'text']
+        widgets = {
+            'question_text': forms.Select(attrs={'class': 'form-control'}),
+            'pub_date': forms.DateTimeInput(attrs={'class': 'form-control'}),
+            'text': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
-    def __init__(self, *args, **kwargs):
-        question = kwargs.pop('question')
-        super().__init__(*args, **kwargs)
-        self.fields['selected_option'].queryset = Option.objects.filter(question=question)
+class ChoiceForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['question', 'choice_text', 'selected']
+        widgets = {
+            'question': forms.Select(attrs={'class': 'form-control'}),
+            'choice_text': forms.TextInput(attrs={'class': 'form-control'}),
+            'selected': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+class QuestionGroupForm(forms.ModelForm):
+    class Meta:
+        model = QuestionGroup
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
