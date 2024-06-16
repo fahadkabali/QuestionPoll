@@ -107,9 +107,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                <li class="breadcrumb-item">
-                  <a href="#">Username</a>
+                  <a href="#">{{username.username}}</a>
                </li>
-               <li class="breadcrumb-item active">Status oline</li>
+               <li class="breadcrumb-item active text-success bg-success">Status oline</li>
             </ol>
             <!-- Icon Cards-->
             <div class="card-list">
@@ -120,14 +120,54 @@
                   <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                      <div class="card blue">
                         <div class="title">{{ group.name }}</div>
-						<p class="text-center lead">Found {{ latest_question_groups.count }} question groups.</p>
+						<!-- <p class="text-center lead">Found {{ latest_question_groups.count }} question groups.</p> -->
                         <i class="fa fa-fw fa-comments"></i>
 						{% if group.questions.all %}
 						{% for question in group.questions.all %}
                         <div class="value">{{ question.text }}</div>
+
+
+                        <div class="container my-5">
+                           <a class="btn btn-secondary btn-sm mb-3" href="{% url 'valuation_questions:index' %}">Back To Questions</a>
+                           <h1 class="text-center mb-3">{{ question.text }}</h1>
+                       
+                           {% if error_message %}
+                               <p class="alert alert-danger">
+                                   <strong>{{ error_message }}</strong>
+                               </p>
+                           {% endif %}
+                       
+                           <form action="{% url 'valuation_questions:selection' question.id %}" method="post">
+                               {% csrf_token %}
+                               {% for choice in question.choice_set.all %}
+                                   <div class="form-check">
+                                       <input type="radio" name="choice" class="form-check-input" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+                                       <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                                   </div>
+                               {% endfor %}
+                               <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block mt-4" />
+                           </form>
+                       </div>
+
+
+
                         <div class="details"><a href="{% url 'valuation_questions:detail' question.id %}" class="btn btn-primary btn-sm">View Details &gt;</a></div>
 						{% endfor %}
-						<p class="text-muted">Found {{ group.questions.count }} questions in this group.</p>
+						<!-- <p class="text-muted">Found {{ group.questions.count }} questions in this group.</p> -->
+                        
+
+
+                  <form action="{% url 'valuation_questions:selection' question.id %}" method="post">
+                     {% csrf_token %}
+                     {% for choice in question.choice_set.all %}
+                         <div class="form-check">
+                             <input type="radio" name="choice" class="form-check-input" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+                             <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                         </div>
+                     {% endfor %}
+                     <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block mt-4" />
+                 </form>
+
 						{% else %}
                             <p class="text-danger">No questions available in this group.</p>
                         {% endif %}
@@ -139,6 +179,34 @@
     			{% endif %}
                </div>
             </div>
+
+
+            
+
+            <div class="container my-5">
+               <a class="btn btn-secondary btn-sm mb-3" href="{% url 'valuation_questions:index' %}">Back To Questions</a>
+               <h1 class="text-center mb-3">{{ question.text }}</h1>
+           
+               {% if error_message %}
+                   <p class="alert alert-danger">
+                       <strong>{{ error_message }}</strong>
+                   </p>
+               {% endif %}
+           
+               <form action="{% url 'valuation_questions:selection' question.id %}" method="post">
+                   {% csrf_token %}
+                   {% for choice in question.choice_set.all %}
+                       <div class="form-check">
+                           <input type="radio" name="choice" class="form-check-input" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+                           <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                       </div>
+                   {% endfor %}
+                   <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block mt-4" />
+               </form>
+           </div>
+
+
+
             <!-- Area Chart -->
             <div class="card mb-3">
                <div class="card-header">
