@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-# app_name=('userauth')
+app_name=('userauth')
 urlpatterns = [
     path('', views.home, name='home'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
