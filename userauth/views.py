@@ -11,6 +11,8 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from . tokens import generate_token
+from . models import Profile
+from . forms import ProfilePictureForm
 # Create your views here.
 def home(request):
     return render(request,"userauth/index.html")
@@ -120,3 +122,18 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
+
+
+def profile_picture_view(request):
+    if request.method == 'POST':
+        form =ProfilePictureForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile =Profile.objects.get(user =request.user)
+            profile.picture = form.cleaned_data['picture']
+            profile.save()
+            messages.success(request,'Profile picture updated successfully!')
+
+            return redirect('dashboard')
+    else:
+        form = ProfilePictureForm()
+    return render(request,'dashboard/profile_picture.html',{'form', form})

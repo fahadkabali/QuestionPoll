@@ -18,6 +18,14 @@
          <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+               <div class="image">
+                   <img src="{{ request.user.profile_pic}}" class="img-circle elevation-2" alt="User Image">
+               </div>
+               <div class="info">
+                   <a href="#" class="d-block">{{user}}</a>
+               </div>
+           </div>
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
                   <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">

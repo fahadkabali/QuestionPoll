@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser, UserManager, Group, Permission
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 
 class CustomUserManager(UserManager):
     def _create_user(self, email, password=None, **extra_fields):
@@ -58,3 +59,10 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.last_name + " " + self.first_name
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+
+    def __str__(self):
+        return f'Profile for {self.user.username}'

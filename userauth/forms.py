@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
+from . models import Profile
+from django.core.exceptions import ValidationError
 
 class FormSettings(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -59,3 +61,16 @@ class SignupForm(UserCreationForm, FormSettings):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+class ProfilePictureForm(forms.ModelForm):
+    picture = forms.ImageField(label='Profile Picture')
+
+    class Meta:
+        model =Profile
+        fields = ('picture',)
+
+    def clean_picture(self):
+        picture = self.cleaned_data.get('picture')
+        if not picture:
+            raise ValidationError("No image Selected")
+        return picture
